@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You 💌</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffc0cb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial;
+      overflow: hidden;
+    }
+
+    #teddy {
+      font-size: 90px;
+      margin-bottom: 10px;
+      animation: wobble 2s infinite;
+    }
+
+    @keyframes wobble {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(6deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-6deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    #envelope {
+      font-size: 120px;
+      cursor: pointer;
+    }
+
+    #questionBox {
+      display: none;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d6002f;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 22px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background: #ff2e63;
+      color: white;
+    }
+
+    #no {
+      position: absolute;
+      background: #777;
+      color: white;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 45px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="teddy">🧸</div>
+<div id="envelope" onclick="openLetter()">💌</div>
+
+<div id="questionBox">
+  <h1>Do u love me? ❤️</h1>
+  <button id="yes" onclick="startLove()">Yes</button>
+  <button id="no">No</button>
+</div>
+
+<script>
+function openLetter() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("teddy").style.display = "none";
+  document.getElementById("questionBox").style.display = "block";
+}
+
+function moveNo() {
+  const noBtn = document.getElementById("no");
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+setInterval(moveNo, 700);
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}
+
+function startLove() {
+  document.getElementById("questionBox").style.display = "none";
+
+  const msg = document.createElement("h1");
+  msg.innerHTML = "Huh I knew it 😌💖<br>How could you not love me?";
+  msg.style.color = "#d6002f";
+  msg.style.textAlign = "center";
+
+  document.body.appendChild(msg);
+
+  setInterval(createHeart, 120);
+}
+</script>
+
+</body>
+</html>
